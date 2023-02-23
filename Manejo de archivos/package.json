@@ -1,0 +1,11 @@
+{
+  "type": "module",
+  "name": "2--manejo-de-archivos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ProductManager.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
