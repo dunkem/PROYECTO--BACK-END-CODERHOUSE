@@ -1,50 +1,94 @@
-/* eslint-disable space-before-function-paren */
-import { PM as productManager } from '../mongo/product.manager.js'
-import { CM as cartManager } from '../mongo/cart.manager.js'
-import { SERVER_CONFIG } from '../config/server.config.js'
+import { productManager } from '../dao/product.manager.js'
+import { cartManager } from '../dao/cart.manager.js'
+import { SERVER } from '../config/server.config.js'
+import { ROLES } from '../models/user.class.js'
+import Handlebars from 'handlebars'
+import { verifyToken } from '../middleware/jwt.config.js'
 
-const VIEWS_LINKS = {
-  goToProducts: `${SERVER_CONFIG.BASE_URL}`,
-  goToCart: `${SERVER_CONFIG.BASE_URL}/cart/1`
-}
+import { COOKIE_NAME } from '../config/config.js'
 
 const RENDER_PATH = {
-  STATIC: 'index.handlebars',
-  CART: 'cart.handlebars'
+  CART: 'cart',
+  LOGIN: 'login',
+  PROFILE: 'profile',
+  REGISTER: 'register',
+  PRODUCTS: 'products'
 }
 
-async function productsPaginate(req, res, next) {
+Handlebars.registerHelper('eq', function (a, b) { return a === b })
+
+async function productsPaginate (req, res, next) {
   try {
     const { products } = await productManager.getProducts(req.query)
 
-    res.status(products.status).render(RENDER_PATH.STATIC, {
+    const token = req.signedCookies[COOKIE_NAME]
+
+    const userInfo = await verifyToken(token)
+
+    res.status(products.status).render(RENDER_PATH.PRODUCTS, {
       headerTitle: 'Home | Products',
       mainTitle: 'List of products',
       info: products,
       listExist: products.payload.length > 0,
-      urlToCart: VIEWS_LINKS.goToCart
+      userCart: userInfo.cartID,
+      urlToCart: `${SERVER.BASE_URL}/cart/${userInfo.cartID}`,
+      name: `${userInfo.first_name} ${userInfo.last_name}`,
+      role: userInfo.role
     })
   } catch (error) {
     return next(error.message)
   }
 }
 
-async function cartItems(req, res, next) {
+async function cartItems (req, res, next) {
   try {
     const query = req.params.cid
     const myCart = await cartManager.getCartById(query)
-    console.log('myCart', myCart.cart.products[0])
 
     res.status(myCart.status_code).render(RENDER_PATH.CART, {
       headerTitle: 'Home | My cart',
       mainTitle: 'My list of products',
       info: myCart.cart.products,
       listExist: myCart.totalProducts > 0,
-      urlToProducts: VIEWS_LINKS.goToProducts
+      urlToProducts: `${SERVER.BASE_URL}/products`
     })
   } catch (error) {
     return next(error.message)
   }
 }
 
-export { productsPaginate, cartItems }
+function login (req, res, next) {
+  res.status(200).render(RENDER_PATH.LOGIN, {
+    headerTitle: 'Log in',
+    mainTitle: 'Log in'
+  })
+}
+
+function register (req, res, next) {
+  res.status(200).render(RENDER_PATH.REGISTER, {
+    headerTitle: 'Register',
+    mainTitle: 'Register',
+    roles: Object.values(ROLES)
+  })
+}
+
+async function profile (req, res, next) {
+  const token = req.signedCookies[COOKIE_NAME]
+
+  const userInfo = await verifyToken(token)
+
+  // TODO: ver que muestra el req.session si el usuario se logea con github
+
+  res.status(200).render(RENDER_PATH.PROFILE, {
+    headerTitle: 'HOME | Profile',
+    mainTitle: 'My Profile',
+    userInfo: {
+      user: userInfo.email,
+      name: `${userInfo.first_name} ${userInfo.last_name}`,
+      age: userInfo.age,
+      role: userInfo.role
+    }
+  })
+}
+
+export { productsPaginate, cartItems, login, profile, register }

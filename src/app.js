@@ -1,34 +1,43 @@
-'use strict'
-/* eslint space-before-function-paren: 0 */
 
 // Libraries
 import express from 'express'
-import { engine } from 'express-handlebars'
 import mongoose from 'mongoose'
+import { engine } from 'express-handlebars'
+
+// Constants
+import { SERVER, FOLDERS, ROUTES } from './config/server.config.js'
+import { URL_DB, COOKIE_SECRET } from './config/config.js'
 
 // Routers
-import { productsRouter } from './routers/productsRouter.js'
-import { cartsRouter } from './routers/cartsRouter.js'
-import { viewsRouter } from './routers/viewsRouter.js'
+import { sessionRouter } from './routers/sessions.router.js'
+import { productsRouter } from './routers/products.router.js'
+import { cartsRouter } from './routers/carts.router.js'
+import { viewsRouter } from './routers/views.router.js'
 
 // Middlewares
 import { handleError } from './middleware/errors.js'
-import { SERVER_CONFIG as SC } from './config/server.config.js'
-import { URL } from './config/database.config.js'
+import { passportInitialize } from './middleware/passport.config.js'
+import cookieParser from 'cookie-parser'
 
-await mongoose.connect(URL)
+await mongoose.connect(URL_DB)
 
 const app = express()
-app.use(SC.STATIC_ROUTE, express.static(SC.STATIC_FOLDER))
+app.use(cookieParser(COOKIE_SECRET))
+app.use(ROUTES.STATIC_ROUTE, express.static(FOLDERS.STATIC_FOLDER))
 
 app.engine('handlebars', engine())
-app.set('views', SC.VIEWS_FOLDER)
+app.set('views', FOLDERS.VIEWS_FOLDER)
+app.set('view engine', 'handlebars')
 
-app.use(SC.PRODUCTS_ROUTE, productsRouter)
-app.use(SC.CARTS_ROUTE, cartsRouter)
-app.use('/', viewsRouter)
+// acá cargo passport en el servidor express como middleware
+app.use(passportInitialize)
+
+app.use(ROUTES.SESSION_ROUTE, sessionRouter)
+app.use(ROUTES.PRODUCTS_ROUTE, productsRouter)
+app.use(ROUTES.CARTS_ROUTE, cartsRouter)
+app.use(ROUTES.VIEWS_ROUTES, viewsRouter)
 app.use(handleError)
 
-app.listen(SC.PORT, () => {
-  console.log(`Example app listening on ${SC.BASE_URL}`)
+app.listen(SERVER.PORT, () => {
+  console.log(`app on ${SERVER.BASE_URL}`)
 })
