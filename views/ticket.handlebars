@@ -1,0 +1,43 @@
+<header>
+  <nav class="nav-container">
+    <ul class="nav-list" id="lista">
+      <li class="nav-item"><a href="#" id="cartref"><img
+            src="../public/img/Astros-nav.png"
+            alt="logo"
+            class="logo-image"
+            id="logo"
+          /></a></li>
+      <li class="nav-item btn"><a
+          href="/products?limit=10&page=1"
+          id="back-to-products"
+        ><i class="fa-solid fa-backward"></i></a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <h2 id="ticket-heading">{{Head}}</h2>
+
+  <div class="big-conteiner">
+
+    <h3>Thanks for your purchase {{ticket.purcheaser}}!</h3>
+
+    <div class="products-container">
+      <h4>Sumary:</h4>
+      {{#each list}}
+        <div class="product">
+          <div class="product-name">{{this.product.title}}</div>
+          <div
+            class="product-price"
+          >{{this.product.price}}x{{this.quantity}}</div>
+          <div class="product-total">${{multiply
+              this.product.price
+              this.quantity
+            }}</div>
+        </div>
+      {{/each}}
+    </div>
+
+    <h3>TOTAL: ${{ticket.amount}}</h3>
+
+  </div>
+</main>

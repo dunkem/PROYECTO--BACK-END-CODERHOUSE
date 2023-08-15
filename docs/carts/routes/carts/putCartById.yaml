@@ -1,0 +1,59 @@
+paths:
+  /carts/{id}:
+    put:
+      summary: Edits the products in cart with given id
+      tags:
+        - Carts
+      parameters:
+        - name: id
+          in: path
+          description: path parameter takes the cart id
+          required: true
+          type: string
+        - name: pid
+          in: path
+          description: path parameter takes the product id
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/CartProducts"
+      responses:
+        "200":
+          description: Products in the cart with given id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+              example:
+                - product:
+                    id: "8b249da4-bf67-4073-b03b-2aaf42987b8a"
+                    title: "Boca Jrs 23"
+                    description: "Titular-Original"
+                    price: 35000
+                    thumbnail:
+                      - "data:image.jpg"
+                    code: "CABJT23"
+                    stock: 12
+                    status: true
+                    category: "CLUBS"
+                    owner: "super-admin"
+                  quantity: 3
+                - product:
+                    id: "efgh5678"
+                    title: "Example Product"
+                    description: "This is an example product."
+                    price: 9999
+                    thumbnail:
+                      - "https://example.com/product.jpg"
+                    code: "EXMPL1"
+                    stock: 50
+                    status: true
+                    category: "OTROS"
+                    owner: "admin"
+                  quantity: 1
+        "404":
+          description: cart not found Error

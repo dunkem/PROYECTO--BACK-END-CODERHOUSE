@@ -1,0 +1,89 @@
+<header>
+  <nav class="nav-container">
+    <ul class="nav-list" id="lista">
+      <li class="nav-item">
+        <a href="/products?limit=10&page=1" id="cartref">
+          <img
+            src="../public/img/Astros-nav.png"
+            alt="logo"
+            class="logo-image"
+            id="logo"
+          />
+        </a>
+      </li>
+      <li class="nav-item btn">
+        <a href="/products?limit=10&page=1" id="back-to-products">
+          <i class="fa-solid fa-backward"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<div class="document-card">
+  <h3>{{Head}}</h3>
+  <br /><br />
+  <form
+    class="{{uid}}"
+    action="/upload"
+    method="POST"
+    id="formDocs"
+    enctype="multipart/form-data"
+  >
+    <div class="file-input-container">
+      <label
+        for="image-upload-identificator"
+        class="file-input-label"
+        id="label-identificator"
+      >
+        Identificator File
+      </label>
+      <input
+        type="file"
+        id="image-upload-identificator"
+        name="identificator"
+        accept="image/*"
+        multiple="false"
+        onchange="handleFileChange()"
+      />
+    </div>
+    <div class="file-input-container">
+      <label
+        for="image-upload-address"
+        class="file-input-label"
+        id="label-address"
+      >
+        Address File
+      </label>
+      <input
+        type="file"
+        id="image-upload-address"
+        name="address"
+        accept="image/*"
+        multiple="false"
+        onchange="handleFileChange()"
+      />
+    </div>
+    <div class="file-input-container">
+      <label
+        for="image-upload-status"
+        class="file-input-label"
+        id="label-status"
+      >
+        Status File
+      </label>
+      <input
+        type="file"
+        id="image-upload-status"
+        name="status"
+        accept="image/*"
+        multiple="false"
+        onchange="handleFileChange()"
+      />
+    </div>
+    <br /><br />
+    <button type="submit" id="submit-btn" disabled="true">Submit</button>
+  </form>
+</div>
+
+<script src="../public/js/documents.js" type="application/javascript"></script>

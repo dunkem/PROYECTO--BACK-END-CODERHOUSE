@@ -1,0 +1,89 @@
+body {
+  background: url("../img/recover-fondo.jpg") no-repeat center top;
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  font-family: sans-serif;
+  height: 100%;
+  overflow: scroll;
+}
+
+/* Registro User */
+
+.recover-box {
+  width: 480px;
+  height: auto;
+  background: #600252;
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  box-sizing: border-box;
+  padding: 30px 30px;
+  border-radius: 10%;
+  opacity: 0.8;
+}
+
+.recover-box form {
+  max-width: 400px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+.recover-box h1 {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.recover-box input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.recover-box input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.recover-box input[type="submit"] {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #01657ed1;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 20px;
+}
+
+.recover-box a {
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 20 px;
+  color: darkgrey;
+  display: block;
+}
+
+.recover-box a:hover {
+  color: #3594ae;
+}
+
+@media (max-width: 768px) {
+  .recover-box {
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 50px 20px;
+  }
+
+  .recover-box form {
+    max-width: none;
+  }
+}

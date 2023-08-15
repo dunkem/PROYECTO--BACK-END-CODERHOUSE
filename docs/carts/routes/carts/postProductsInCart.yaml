@@ -1,0 +1,36 @@
+paths:
+  /carts/{cid}/product/{pid}:
+    post:
+      summary: Add product in cart
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: path parameter takes the cart id
+          required: true
+          type: string
+        - name: pid
+          in: path
+          description: path parameter takes the product id
+          required: true
+          type: string
+      responses:
+        "201":
+          description: Product added in this cart.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+              example:
+                id: "801de265-9dfe-4db7-bc84-0cc89a11f070"
+                title: "Argentina Qatar Titular"
+                description: "mundial 2022"
+                price: 15000
+                thumbnail:
+                  - "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/611f58bb7b4444bbb62eaeca012c57dd_9366/camiseta-titular-argentina-22.jpg"
+                code: "ARG22"
+                stock: 100
+                status: true
+                category: "AFA"
+                owner: "super-admin"

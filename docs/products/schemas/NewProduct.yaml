@@ -1,0 +1,56 @@
+# NewProduct
+components:
+  requestBodies:
+    NewProduct:
+      type: object
+      required:
+        - title
+        - description
+        - price
+        - thumbnail
+        - code
+        - stock
+        - category
+        - owner
+      properties:
+        title:
+          type: string
+          description: The title of the product.
+        description:
+          type: string
+          description: The description of the product.
+        price:
+          type: number
+          description: The price of the product.
+        thumbnail:
+          type: string
+          description: The URLs of the product thumbnails.
+        code:
+          type: string
+          description: The code of the product.
+          maxLength: 7
+        stock:
+          type: number
+          description: The stock quantity of the product.
+        category:
+          type: string
+          description: The category of the product.
+          enum:
+            - AFA
+            - CLUBS
+            - +SELECCIONES
+            - RETRO
+            - OTROS
+            - PERLITAS
+        owner:
+          type: string
+          description: The owner of the product.
+      example:
+        title: "Argentina Qatar Titular"
+        description: "mundial 2022"
+        price: 15000
+        thumbnail: "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/611f58bb7b4444bbb62eaeca012c57dd_9366/camiseta-titular-argentina-22.jpg"
+        code: "ARG22"
+        stock: 100
+        category: "AFA"
+        owner: "super-admin"

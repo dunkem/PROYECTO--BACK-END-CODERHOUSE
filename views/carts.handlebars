@@ -1,0 +1,50 @@
+<header>
+  <nav class="nav-container">
+    <ul class="nav-list" id="lista">
+      <li class="nav-item"><a href="/carts/{{cid}}" id="cartref"><img
+            src="../public/img/Astros-nav.png"
+            alt="logo"
+            class="logo-image"
+            id="logo"
+          /></a></li>
+      <li class="nav-item btn"><a
+          href="/products?limit=10&page=1"
+          id="back-to-products"
+        ><i class="fa-solid fa-backward"></i></a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <h2 id="cart-heading">{{Head}}</h2>
+
+  {{#if listExist}}
+    <h4 id="ordertitle">My Order</h4>
+    <section id="cart-items">
+      {{#each list}}
+        <div class="cart-item" id="cart-item-{{this.product.code}}">
+          <h3>{{this.product.title}}</h3>
+          <p>{{this.product.description}}</p>
+          <ul>
+            <li>Code: {{this.product.code}}</li>
+            <li>Description: {{this.product.description}}</li>
+            <li>Price: ${{this.product.price}}</li>
+            <li>Quantity: {{this.quantity}}</li>
+          </ul>
+           <button class="remove-item"
+                type="button"
+                onclick="delProductInCartShop(document.getElementById('cartref').href,this.dataset.productid)"
+                data-productid={{this.product.id}}
+              />Remove
+            Item</button>
+        </div>
+      {{/each}}
+    </section>
+    <button id="pay-button" onclick="payOrder(document.getElementById('cartref').href)">Pay My Order</button>
+  {{else}}
+    <p class="">No Products yet</p>
+  {{/if}}
+</main>
+
+<script src="/public/js/removeprod.js"></script>
+<script src="/public/js/payorder.js"></script>

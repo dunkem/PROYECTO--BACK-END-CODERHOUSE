@@ -1,19 +1,56 @@
-<h2>{{mainTitle}}</h2>
+<header>
+  <nav class="nav-container">
+    <ul class="nav-list" id="lista">
+      <li class="nav-item"><a href="/products?limit=10&page=1" id="cartref"><img
+            src="../public/img/Astros-nav.png"
+            alt="logo"
+            class="logo-image"
+            id="logo"
+          /></a></li>
+      <li class="nav-item btn"><a
+          href="/products?limit=10&page=1"
+          id="back-to-products"
+        ><i class="fa-solid fa-backward"></i></a></li>
+    </ul>
+  </nav>
+</header>
 
-<a href="/products" class="btn btn-primary" role="button">Go to products</a> 
-<a href="/api/sessions/current" class="btn btn-secondary" role="button">Current user info </a> 
-<button id="btn_logout" type="button" class="btn btn-danger">Logout</button>
+<div class="profile-card">
+  <form action="submit" id="formphoto"><label
+      for="image-upload"
+      class="profile-image-wrapper"
+    >
+      <img id="profile-image" src="{{profilePhoto}}" alt="Perfil de Usuario" />
+      <i class="fas fa-camera"></i>
+    </label>
+    <input
+      class="{{uid}}"
+      type="file"
+      id="image-upload"
+      accept="image/*"
+      style="display: none;"
+      multiple="false"
+    /></form>
+  <div class="profile-info">
+    <div class="info-row">
+      <span>{{fullname}}</span>
+    </div>
+    <div class="info-left">
+      <div class="info-row">
+        <span>Email: {{email}}</span>
+      </div>
+      <div class="info-row">
+        <span>Age: {{age}}</span>
+      </div>
+      <div class="info-row">
+        <span>Role: {{role}}</span>
+      </div>
+      <div class="info-row">
+        <span>Last Connection: {{lastconnection}}</span>
+      </div>
+    </div>
 
-<ul class="list-group mt-3">
-
-  {{#if (eq userInfo.role 'admin')}}
-    <li class="list-group-item active" aria-current="true">Access: Admin</li>
-  {{else}}
-    <li class="list-group-item" aria-current="true">User</li>
-  {{/if}}
-  <li class="list-group-item">Email: {{userInfo.user}}</li>
-  <li class="list-group-item">Name: {{userInfo.name}}</li>
-  <li class="list-group-item">Age: {{userInfo.age}}</li>
-</ul>
-
-<script src="/static/scripts/profile.js"></script>
+  </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="../public/js/profile.js" type="application/javascript"></script>

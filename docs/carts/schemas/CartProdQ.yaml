@@ -1,0 +1,15 @@
+CartProdQ:
+  components:
+    requestBodies:
+      CartProdQ:
+        type: object
+        properties:
+          product:
+            type: string
+            description: The id of the product in the cart.
+          quantity:
+            type: number
+            description: The quantity of the product in the cart.
+        example:
+          product: "8b249da4-bf67-4073-b03b-2aaf42987b8a"
+          quantity: 3

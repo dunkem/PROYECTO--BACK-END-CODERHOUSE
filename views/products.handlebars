@@ -1,63 +1,128 @@
-<h2>{{mainTitle}}</h2>
 
-<h3>Welcome {{name}}</h3>
-{{#if (eq role 'admin')}}
-<p>Access level: Admin</p>
-{{else}}
-<p>Access level: User</p>
-{{/if}}
-
-<a href={{urlToCart}} data-cart={{userCart}} id="linkToCart" class="btn btn-primary" role="button">Go to my cart</a>
-<a href="/profile" class="btn btn-primary" role="button">Check my profile</a>
-
+<header>
+  <nav class="nav-container">
+    <ul class="nav-list" id="lista">
+      <li class="nav-item"><a href="https://back-proyecto-final-production-bee0.up.railway.app/products?limit=10&page=1"><img
+            src="../public/img/Astros-nav.png"
+            alt="logo"
+            class="logo-image"
+            id="logo"
+          /></a></li>
+      <li class="nav-item"><a href="https://back-proyecto-final-production-bee0.up.railway.app/products?limit=10&page=1&category=AFA">Afa</a></li>
+      <li class="nav-item"><a href="https://back-proyecto-final-production-bee0.up.railway.app/products?limit=10&page=1&category=CLUBS">Club</a></li>
+      <li class="nav-item"><a href="https://back-proyecto-final-production-bee0.up.railway.app/products?limit=10&page=1&category=+SELECCIONES">+ Selecciones</a></li>
+      <li class="nav-item"><a href="https://back-proyecto-final-production-bee0.up.railway.app/products?limit=10&page=1&category=RETRO">Retro</a></li>
+      <li class="nav-item"><a href="https://back-proyecto-final-production-bee0.up.railway.app/products?limit=10&page=1&category=OTROS">Otros</a></li>
+      <li class="nav-item"><a href="https://back-proyecto-final-production-bee0.up.railway.app/products?limit=10&page=1&category=PERLITAS">Perlitas</a></li>
+      {{#if role}}
+       <li class="nav-item btn"><a href="/newproducts" class="add-btn" id="addref"><i class="fa-solid fa-shirt"></i></a></li>
+      {{/if}}
+      <li class="nav-item btn"><a href="/carts/{{this.cart}}" class="cart-btn" id="cartref" data-tippy-content="Cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+      <li class="nav-item btn"><a href="#" class="profile-btn" id="profile"><i class="fa-solid fa-user"></i></a><!-- Menú desplegable -->
+      <ul class="dropdown-menu" id="profileMenu">
+        <li><a href="/profile/{{uid}}" id="myprofile">Profile</a></li>
+        <li><a href="/documents/{{uid}}">Documents</a></li>
+        {{#if superrole}}
+        <li><a href="/users">Users Manager</a></li>
+        {{/if}}
+      </ul></li>
+      <li class="nav-item btn"><a href="#" class="logout-btn" id="logout"><i class="fa-solid fa-right-from-bracket"></i></a></li>
+    </ul>
+  </nav>
+</header>
 
 {{#if listExist}}
-  <h4>Products:</h4>
-  <div class='container text-center mb-5'>
-    <div class='row row-gap-5'>
-      {{#each info.payload}}
-        <div class='col-3'>
-          <div class='card'>
-            <div class='card-body'>
-              <h5 class='card-title'>{{this.title}}</h5>
-              <p class='card-text'>{{this.description}}</p>
-            </div>
-            <ul class='list-group list-group-flush'>
-              <li class='list-group-item'>Item ID: {{this.id}}</li>
-              <li class='list-group-item'>Description: {{this.description}}</li>
-              <li class='list-group-item'>Price: ${{this.price}}</li>
-              <li class='list-group-item'>Stock: {{this.stock}}</li> {{!-- this.dataset.productid --}}
-              <button type="button" onclick="addProductToCart(this.dataset.productid)" data-productid={{this.id}} class="list-group-item list-group-item-action active" aria-current="true">
-                Add product to cart
+  <div class="container">
+      {{#each list.payload}}
+             <div class="product-card">
+      <img src="{{this.thumbnail}}" alt="no photo">
+      <h2>{{this.title}}</h2>
+      <p>Categoría: {{this.category}}</p>
+      <p>Item:{{this.code}}</p>
+      <p>Descripción: {{this.description}}</p>
+      <p>Precio: {{this.price}}</p>
+      <p>Stock: {{this.stock}}</p>
+      <input type="number" min="1" max="{{this.stock}}" value="1" id="quantity-{{this.code}}">
+        <button class="cart"
+                type="button"
+                onclick="addProductQuantityToCart(document.getElementById('cartref').href,this.dataset.productid,document.getElementById('quantity-{{this.code}}').value)"
+                data-productid={{this.id}}
+              /> <img
+                  class="cart"
+                  src="../public/img/cart-plus-solid.svg"
+                  alt="cart"
+                />
               </button>
-            </ul>
-          </div>
-        </div>
-      {{/each}}
     </div>
+      {{/each}}
   </div>
 {{else}}
-  <p class=''>Sin Products...</p>
+  <p class="">the product gallery is empty</p>
 {{/if}}
-
 
 <nav aria-label="Page navigation">
   <ul class="pagination">
-  {{#if info.hasPrevPage}}
+  {{#if list.hasPrevPage}}
       <li class='page-item'>
     {{else}}
       <li class='page-item disabled'>
   {{/if}}
-      <a class="page-link" href={{info.prevLink}}>Previous Page</a>
+      <a class="page-link" href={{list.prevLink}}>Prev Page</a>
     </li>
-  {{#if info.hasNextPage}}
+  {{#if list.hasNextPage}}
       <li class='page-item'>
     {{else}}
       <li class='page-item disabled'>
   {{/if}}
-      <a class="page-link" href={{info.nextLink}}>Next Page</a>
+      <a class="page-link" href={{list.nextLink}}>Next Page</a>
     </li>
   </ul>
 </nav>
+<footer>
+  <div class="container-footer">
+    <div>
+      <p class="footer-text">Created by Joa</p>
+  </div>
+  
+    <div class="iconos">
+      <a
+        href="https://instagram.com/"
+        target="_blank"
+        rel="noreferrer noopener"
+      ><img
+          src="../public/img/instagram.png"
+          alt="instagram"
+          class="image-icon"
+        /></a>
+      <a
+        href="https://twitter.com/"
+        target="_blank"
+        rel="noreferrer noopener"
+      ><img
+          src="../public/img/twitter.png"
+          alt="twitter"
+          class="image-icon"
+        /></a>
+      <a
+        href="https://www.linkedin.com/in/"
+        target="_blank"
+        rel="noreferrer noopener"
+      ><img
+          src="../public/img/linkedin.png"
+          alt="linkedin"
+          class="image-icon"
+        /></a>
+    </div>
+    {{#if chat}}
+    <div id="chat">
+      <div class="btn"> <a href="/chat" class="btn"><i class="fa-solid fa-message" ></i></a></div>
+      <p>Chat here</p>
+    </div>
+    {{/if}}
+  </div>
+</footer>
 
-<script src="/static/scripts/products.js"></script>
+<script src="/public/js/product.js"></script>
+<script src="/public/js/logout.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tippy.js/6.3.1/tippy.all.min.js" integrity="sha512-NsiYiJ86BHeVbSzIzt35rQOwBdX9VC5qOUC2peSbnzad0Ae9mX4zt+wx9rH0uJrLrjtltOlLCCZPemf6O6pl0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+

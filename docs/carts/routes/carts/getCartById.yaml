@@ -1,0 +1,21 @@
+paths:
+  /carts/{id}:
+    get:
+      summary: Gets the products in cart with given id
+      tags:
+        - Carts
+      parameters:
+        - name: id
+          in: path
+          description: path parameter takes the cart id
+          required: true
+          type: string
+      responses:
+        "200":
+          description: The cart with given id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "404":
+          description: cart not found Error

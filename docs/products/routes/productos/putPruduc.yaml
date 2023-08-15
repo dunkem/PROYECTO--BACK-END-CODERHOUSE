@@ -1,0 +1,46 @@
+paths:
+  /products/{id}:
+    put:
+      summary: Edit the product with given id
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          description: path parameter takes the product id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/NewProduct"
+            example:
+              title: "Argentina Qatar Suplente"
+              description: "mundial 2022"
+              price: 25000
+              thumbnail: "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/611f58bb7b4444bbb62eaeca012c57dd_9366/camiseta-titular-argentina-22.jpg"
+              code: "ARG22"
+              stock: 100
+              category: "AFA"
+              owner: "super-admin"
+      responses:
+        "200":
+          description: The product with given id has been edited
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+              example:
+                title: "Argentina Qatar Suplente"
+                description: "mundial 2022"
+                price: 25000
+                thumbnail: "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/611f58bb7b4444bbb62eaeca012c57dd_9366/camiseta-titular-argentina-22.jpg"
+                code: "ARG22"
+                stock: 100
+                category: "AFA"
+                owner: "super-admin"
+        "404":
+          description: Product not found Error

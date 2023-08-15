@@ -1,0 +1,37 @@
+# Cart
+components:
+  schemas:
+    Cart:
+      type: object
+      required:
+        - id
+        - products
+      properties:
+        id:
+          type: string
+          description: The auto-generated id of the Cart.
+        products:
+          type: array
+          items:
+            product:
+              type: object
+              properties:
+                id:
+                  type: string
+            quantity:
+              type: number
+          default: []
+      example:
+        - product:
+            id: "8b249da4-bf67-4073-b03b-2aaf42987b8a"
+            title: "Boca Jrs 23"
+            description: "Titular-Original"
+            price: 35000
+            thumbnail:
+              - "data:image.jpg"
+            code: "CABJT23"
+            stock: 12
+            status: true
+            category: "CLUBS"
+            owner: "super-admin"
+          quantity: 3

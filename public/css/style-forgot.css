@@ -1,0 +1,89 @@
+body {
+  background: url("../img/forgot-fondo.jpg") no-repeat center top;
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  font-family: sans-serif;
+  height: 100%;
+  overflow: scroll;
+}
+
+/* Registro User */
+
+.forgot-box {
+  width: 480px;
+  height: auto;
+  background: #600252;
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  box-sizing: border-box;
+  padding: 30px 30px;
+  border-radius: 10%;
+  opacity: 0.8;
+}
+
+.forgot-box form {
+  max-width: 400px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+.forgot-box h1 {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.forgot-box input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.forgot-box input[type="email"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.forgot-box input[type="submit"] {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #01657ed1;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 20px;
+}
+
+.forgot-box a {
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 20 px;
+  color: darkgrey;
+  display: block;
+}
+
+.forgot-box a:hover {
+  color: #3594ae;
+}
+
+@media (max-width: 768px) {
+  .forgot-box {
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 50px 20px;
+  }
+
+  .forgot-box form {
+    max-width: none;
+  }
+}

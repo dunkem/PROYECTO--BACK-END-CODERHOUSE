@@ -1,0 +1,16 @@
+[
+  {
+    "id": "443e3280-5a4e-427d-8498-ab2d1f4e5055",
+    "title": "Argentina Qatar Suplente",
+    "description": "mundial 2022",
+    "price": 25000,
+    "thumbnail": [
+      "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/611f58bb7b4444bbb62eaeca012c57dd_9366/camiseta-titular-argentina-22.jpg"
+    ],
+    "code": "ARG22",
+    "stock": 100,
+    "status": true,
+    "category": "AFA",
+    "owner": "super-admin"
+  }
+]

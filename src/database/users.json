@@ -1,0 +1,15 @@
+[
+  {
+    "id": "43133fcb-0e01-4924-b647-5fd061f3f2ee",
+    "email": "joaquin.bidart@blackid.app",
+    "first_name": "Joaquín ",
+    "last_name": "Bidart",
+    "age": 33,
+    "password": "$2b$10$BfnByL1lZjWQ05EEzCFYA.JTIfB9Uiuei2.UynRU7ktmYgSVreHRu",
+    "role": "user",
+    "documents": [],
+    "photo": "../api/assets/profile/no-profile.png",
+    "cart": "8ed855a9-6af0-4b16-805a-69c6cbe04b6d",
+    "last_connection": "12/08/2023 15:04"
+  }
+]
